@@ -1,5 +1,5 @@
 // Replace with the ID from your Google Admin Console
-const EXTENSION_ID = "YOUR_32_CHARACTER_EXTENSION_ID";
+const EXTENSION_ID = "dgobjcdimkeolppgkaomgodecnibeaji";
 
 function log(msg) {
     document.getElementById('log').innerText = msg;
