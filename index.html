@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiosk Control Center</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 { color: #1a73e8; margin-top: 0; }
+        .status-box {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #e8f0fe;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button:hover { background-color: #1765cc; }
+        button.secondary { background-color: #5f6368; }
+        #log { font-size: 0.8rem; color: #5f6368; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Device Control</h1>
+        <div id="status" class="status-box">Status: Ready</div>
+        
+        <button onclick="checkOSVersion()">Check OS Version</button>
+		<button class="secondary" onclick="triggerUpdateCheck()">Force Update Check</button>
+        <button class="secondary" onclick="triggerReboot()">Restart for Update</button>
+	
+        <div id="log">Waiting for input...</div>
+		
+				<div id="progress-container" style="display:none; margin-top: 10px;">
+			<div style="width: 100%; background: #ddd; height: 10px; border-radius: 5px;">
+				<div id="progress-bar" style="width: 0%; background: #34a853; height: 100%; border-radius: 5px; transition: width 0.3s;"></div>
+			</div>
+			<div id="progress-text" style="font-size: 0.7rem; margin-top: 5px;">Downloading: 0%</div>
+		</div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Register the Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log("SW Registered"));
+        }
+    </script>
+</body>
+</html>
